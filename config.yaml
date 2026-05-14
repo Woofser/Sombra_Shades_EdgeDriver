@@ -1,0 +1,68 @@
+---
+name: sombra-zigbee-edge-driver
+description: SmartThings Edge driver for Sombra Shades
+version: '1.0.0'
+author: Woofser
+
+# Device profiles define the capabilities and actions supported by the driver
+profiles:
+  sombra-shades:
+    name: Sombra Shades
+    description: Zigbee window treatment controller for Sombra Shades
+    metadata:
+      # Icon can be set to a specific device type icon
+      icon: stIcon.windowShade
+      # Health check interval (optional)
+      health_check_interval: 300
+    
+    # Supported capabilities
+    capabilities:
+      - id: windowShade
+        version: 1
+      - id: windowShadeLevel
+        version: 1
+      - id: refresh
+        version: 1
+      - id: healthCheck
+        version: 1
+
+    # Device commands
+    commands:
+      - capability: windowShade
+        command: open
+      - capability: windowShade
+        command: close
+      - capability: windowShadeLevel
+        command: setLevel
+      - capability: refresh
+        command: refresh
+
+# Device fingerprints for detection and matching
+fingerprints:
+  - profile: sombra-shades
+    fingerprints:
+      - endpoint_id: null
+        manufacturer: "Sombra Shades"
+        model: "SOMBRA/Z-M"
+        device_type: null
+        device_class: "Window Covering Device"
+
+# Driver configuration
+driver:
+  file: main.lua
+  lazy_load: true
+  sub_drivers:
+    - sub_drivers/sombra_shades.lua
+
+# Supported manufacturer and model information
+manufacturer: Sombra Shades
+model: SOMBRA/Z-M
+
+# DeviceType category
+deviceType: WINDOW_COVERING
+
+# Additional metadata
+metadata:
+  certification: false
+  vid: sombra-shades
+  mnmn: Sombra Shades
